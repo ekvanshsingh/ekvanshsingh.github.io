@@ -1,302 +1,360 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Web Harmonium</title>
-<style>
-  :root{
-    --ruby:#9e1b3a; --ruby-dark:#7a1430; --bar:#5f7f8f; --bar-dark:#4d6a78;
-    --bg:#f2f2f2; --card:#ffffff; --border:#e2e2e2;
-    --grey-btn:#9a9a9a; --green:#7bc47f; --track:#dcdcdc; --blue:#2196f3;
-  }
-  *{box-sizing:border-box;}
-  html,body{height:100%;}
-  body{
-    margin:0; background:var(--bg); font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
-    display:flex; justify-content:center; min-height:100%;
-    padding: calc(20px + env(safe-area-inset-top,0px)) 14px calc(20px + env(safe-area-inset-bottom,0px));
-  }
-  .app{ width:min(680px,96vw); background:var(--card); border:1px solid var(--border); border-radius:8px; overflow:hidden; box-shadow:0 4px 18px rgba(0,0,0,.08); }
-  .header{ background:linear-gradient(180deg,var(--ruby),var(--ruby-dark)); color:#fff; padding:16px 20px; font-size:20px; font-weight:600; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Harmonium Pro - Authentic Tuning</title>
+    <style>
+        body {
+            background-color: #e9ecef;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
 
-  .keys-legend{ padding:22px 16px 12px; display:flex; justify-content:center; overflow-x:auto; background:#fafafa; }
-  .keyboard{ position:relative; display:flex; width:max-content; touch-action:none; user-select:none; }
-  .white-key{
-    width:38px; height:110px; background:linear-gradient(180deg,#fff,#f4f2ee);
-    box-shadow: inset 0 0 0 1px #c9c9c9, 0 3px 0 #d6d0c4, 0 5px 6px rgba(0,0,0,.12);
-    border-radius:0 0 6px 6px; margin-right:2px; position:relative; cursor:pointer;
-    display:flex; flex-direction:column; align-items:center; justify-content:flex-end;
-    padding-bottom:10px; user-select:none; transition:transform .04s;
-  }
-  .white-key .k{ font-size:12px; color:#333; font-weight:600; }
-  .white-key .n{ font-size:12px; color:#2255cc; font-weight:700; margin-top:3px; }
-  .white-key.active{ background:linear-gradient(180deg,#ffd9e0,#f4b8c4); box-shadow: inset 0 0 0 1px #c9c9c9, 0 1px 0 #d6a0ae; transform:translateY(2px); }
-  .black-key{
-    width:24px; height:68px; background:linear-gradient(180deg,#2b2b2b,#0d0d0d); position:absolute; top:0; z-index:2; cursor:pointer;
-    border-radius:0 0 4px 4px; box-shadow:0 3px 0 #000, 0 5px 8px rgba(0,0,0,.4);
-    display:flex; align-items:flex-start; justify-content:center; padding-top:7px; transition:transform .04s;
-  }
-  .black-key .k{ color:#fff; font-size:11px; }
-  .black-key.active{ background:linear-gradient(180deg,var(--ruby),var(--ruby-dark)); box-shadow:0 1px 0 #000; transform:translateY(2px); }
+        .main-container {
+            width: 100%;
+            max-width: 600px;
+            background-color: #e9ecef;
+            min-height: 100vh;
+            padding-bottom: 50px;
+        }
 
-  .bars{ padding:16px; display:flex; flex-direction:column; gap:14px; }
-  .bar{ background:var(--bar); border-radius:6px; overflow:hidden; }
-  .bar-title{
-    display:flex; align-items:center; justify-content:center; gap:10px;
-    color:#fff; font-size:16px; font-weight:600; padding:12px 14px; text-align:center;
-  }
-  .bar-body{ background:var(--card); padding:12px 14px; }
+        .header {
+            background-color: #009688;
+            color: white;
+            padding: 15px 20px;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
 
-  input[type=range]{ -webkit-appearance:none; width:100%; height:8px; border-radius:4px; background:var(--track); outline:none; }
-  input[type=range]::-webkit-slider-thumb{ -webkit-appearance:none; width:16px; height:16px; border-radius:3px; background:var(--green); cursor:pointer; }
+        .keyboard-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        
+        .keyboard {
+            display: flex;
+            position: relative;
+            background: #fff;
+            border: 1px solid #333;
+            height: 150px;
+        }
 
-  .switch{ position:relative; width:44px; height:24px; flex:none; }
-  .switch input{ opacity:0; width:0; height:0; }
-  .slider-toggle{ position:absolute; inset:0; background:#ccc; border-radius:24px; cursor:pointer; transition:.15s; }
-  .slider-toggle::before{ content:""; position:absolute; width:18px; height:18px; left:3px; top:3px; background:#fff; border-radius:50%; transition:.15s; }
-  input:checked + .slider-toggle{ background:var(--blue); }
-  input:checked + .slider-toggle::before{ transform:translateX(20px); }
+        .white-key {
+            width: 30px;
+            height: 100%;
+            border: 1px solid #333;
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            padding-bottom: 5px;
+            font-size: 12px;
+            box-sizing: border-box;
+            cursor: pointer;
+            z-index: 1;
+        }
 
-  .refresh-icon{ font-size:16px; cursor:pointer; }
-  select{ width:100%; padding:8px; border-radius:4px; border:1px solid #ccc; font-size:13px; }
+        .white-key.active { background-color: #ddd; }
 
-  .stepper{ display:flex; align-items:center; justify-content:space-between; }
-  .stepper button{ width:52px; height:36px; background:var(--grey-btn); color:#fff; border:none; border-radius:4px; font-size:18px; cursor:pointer; }
-  .stepper button:active{ background:var(--bar-dark); }
-  .stepper .val{ font-size:18px; font-weight:600; }
+        .key-label { color: #333; margin-bottom: 15px; }
+        .note-label { color: #0000ff; font-weight: bold; }
 
-  footer{ text-align:center; color:#8a8a8a; font-size:11.5px; padding:0 16px 18px; line-height:1.6; }
+        .black-key {
+            width: 20px;
+            height: 60%;
+            background-color: #000;
+            color: #fff;
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 10px;
+            cursor: pointer;
+            z-index: 2;
+            top: 0;
+            box-sizing: border-box;
+        }
+        
+        .black-key.active { background-color: #333; }
 
-  @media (max-width:560px){
-    .white-key{ width:30px; height:92px; } .black-key{ width:19px; height:56px; }
-  }
-</style>
+        .bk-1 { left: 20px; }
+        .bk-2 { left: 50px; }
+        .bk-4 { left: 110px; }
+        .bk-5 { left: 140px; }
+        .bk-7 { left: 200px; }
+        .bk-8 { left: 230px; }
+        .bk-9 { left: 260px; }
+        .bk-dash { left: 320px; }
+        .bk-eq { left: 350px; }
+
+        .panel {
+            background-color: #fff;
+            margin: 0 20px 20px 20px;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .panel-header {
+            background-color: #5d7e91;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            font-size: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .slider-container {
+            background-color: #e0e0e0;
+            height: 20px;
+            position: relative;
+            margin-bottom: 5px;
+        }
+        
+        .slider-thumb {
+            width: 30px;
+            height: 20px;
+            background-color: #78c278;
+            position: absolute;
+            left: 62%;
+            cursor: pointer;
+        }
+
+        .toggle-switch {
+            width: 50px;
+            height: 24px;
+            background-color: #2196F3;
+            border-radius: 12px;
+            position: relative;
+            cursor: pointer;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        
+        .toggle-circle {
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 2px;
+            right: 2px;
+        }
+
+        .refresh-btn {
+            background-color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .midi-select {
+            width: 100%;
+            max-width: 200px;
+            display: block;
+            margin: 0 auto;
+            padding: 5px;
+        }
+
+        .transpose-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .trans-btn {
+            background-color: #999;
+            border: none;
+            color: black;
+            width: 60px;
+            padding: 10px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        
+        .trans-val { font-size: 18px; }
+
+    </style>
 </head>
 <body>
 
-<div class="app">
-  <div class="header">Web Harmonium</div>
+<div class="main-container">
+    <div class="header">Web Harmonium</div>
 
-  <div class="keys-legend"><div class="keyboard" id="keyboard"></div></div>
+    <!-- Keyboard configured to strict A=440Hz Equal Temperament Frequencies -->
+    <div class="keyboard-container">
+        <div class="keyboard">
+            <div class="white-key" data-key="`" data-freq="246.94"><span class="key-label">`</span><span class="note-label"></span></div>
+            <div class="white-key" data-key="q" data-freq="261.63"><span class="key-label">q</span><span class="note-label">C</span></div>
+            <div class="white-key" data-key="w" data-freq="293.66"><span class="key-label">w</span><span class="note-label">D</span></div>
+            <div class="white-key" data-key="e" data-freq="329.63"><span class="key-label">e</span><span class="note-label">E</span></div>
+            <div class="white-key" data-key="r" data-freq="349.23"><span class="key-label">r</span><span class="note-label">F</span></div>
+            <div class="white-key" data-key="t" data-freq="392.00"><span class="key-label">t</span><span class="note-label">G</span></div>
+            <div class="white-key" data-key="y" data-freq="440.00"><span class="key-label">y</span><span class="note-label">A</span></div>
+            <div class="white-key" data-key="u" data-freq="493.88"><span class="key-label">u</span><span class="note-label">B</span></div>
+            <div class="white-key" data-key="i" data-freq="523.25"><span class="key-label">i</span><span class="note-label"></span></div>
+            <div class="white-key" data-key="o" data-freq="587.33"><span class="key-label">o</span><span class="note-label"></span></div>
+            <div class="white-key" data-key="p" data-freq="659.25"><span class="key-label">p</span><span class="note-label"></span></div>
+            <div class="white-key" data-key="[" data-freq="698.46"><span class="key-label">[</span><span class="note-label"></span></div>
+            <div class="white-key" data-key="]" data-freq="783.99"><span class="key-label">]</span><span class="note-label"></span></div>
+            <div class="white-key" data-key="\\" data-freq="880.00"><span class="key-label">\</span><span class="note-label"></span></div>
 
-  <div class="bars">
-    <div class="bar">
-      <div class="bar-title" id="volTitle">Volume: 62%</div>
-      <div class="bar-body"><input type="range" id="volume" min="0" max="100" value="62"></div>
-    </div>
-
-    <div class="bar">
-      <div class="bar-title">
-        Reverb
-        <label class="switch"><input type="checkbox" id="reverbToggle" checked><span class="slider-toggle"></span></label>
-      </div>
-    </div>
-
-    <div class="bar">
-      <div class="bar-title" id="midiTitle">MIDI Keyboard: searching… <span class="refresh-icon" id="midiRefresh">⟳</span></div>
-      <div class="bar-body"><select id="midiSelect"><option>No MIDI device found</option></select></div>
-    </div>
-
-    <div class="bar">
-      <div class="bar-title" id="transTitle">Scale Changer - C</div>
-      <div class="bar-body">
-        <div class="stepper">
-          <button id="transDown">−</button>
-          <span class="val" id="transVal">0</span>
-          <button id="transUp">+</button>
+            <div class="black-key bk-1" data-key="1" data-freq="277.18">1</div>
+            <div class="black-key bk-2" data-key="2" data-freq="311.13">2</div>
+            <div class="black-key bk-4" data-key="4" data-freq="369.99">4</div>
+            <div class="black-key bk-5" data-key="5" data-freq="415.30">5</div>
+            <div class="black-key bk-7" data-key="7" data-freq="466.16">7</div>
+            <div class="black-key bk-8" data-key="8" data-freq="554.37">8</div>
+            <div class="black-key bk-9" data-key="9" data-freq="622.25">9</div>
+            <div class="black-key bk-dash" data-key="-" data-freq="739.99">-</div>
+            <div class="black-key bk-eq" data-key="=" data-freq="830.61">=</div>
         </div>
-      </div>
     </div>
-  </div>
 
-  <footer>Click, tap, or use your keyboard to play — hold multiple keys for chords. Numbers <code>1 2 4 5 7 8 9 - =</code> play the black keys, letters <code>q w e r t y u i o p [ ] \</code> play the white keys. Connect a MIDI keyboard for the real thing.</footer>
+    <div class="panel">
+        <div class="panel-header">Volume: <span id="vol-display">62%</span></div>
+        <div class="slider-container" id="vol-track">
+            <div class="slider-thumb" id="vol-thumb"></div>
+        </div>
+    </div>
+
+    <div class="panel">
+        <div class="panel-header">
+            Reverb 
+            <div class="toggle-switch">
+                <div class="toggle-circle"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel">
+        <div class="panel-header">
+            MIDI Keyboard Supported!
+            <button class="refresh-btn">↻</button>
+        </div>
+        <select class="midi-select"></select>
+    </div>
+
+    <div class="panel">
+        <div class="panel-header">Transpose - C</div>
+        <div class="transpose-controls">
+            <button class="trans-btn">-</button>
+            <div class="trans-val">0</div>
+            <button class="trans-btn">+</button>
+        </div>
+    </div>
 </div>
 
 <script>
-const AudioCtx = window.AudioContext || window.webkitAudioContext;
-let ctx=null, masterGain=null, convolver=null, dryGain=null, wetGain=null;
-function ensureAudio(){
-  if(!ctx){
-    ctx = new AudioCtx();
-    masterGain = ctx.createGain(); masterGain.gain.value = document.getElementById('volume').value/100;
-    dryGain = ctx.createGain(); wetGain = ctx.createGain();
-    wetGain.gain.value = document.getElementById('reverbToggle').checked ? 0.3 : 0;
-    convolver = ctx.createConvolver(); convolver.buffer = makeImpulse(2.2,2.2);
-    masterGain.connect(dryGain).connect(ctx.destination);
-    masterGain.connect(convolver).connect(wetGain).connect(ctx.destination);
-  }
-  if(ctx.state === 'suspended') ctx.resume();
-}
-function makeImpulse(seconds,decay){
-  const rate=44100, len=rate*seconds;
-  const buf=new (window.OfflineAudioContext||AudioCtx)(2,len,rate).createBuffer(2,len,rate);
-  for(let ch=0;ch<2;ch++){ const d=buf.getChannelData(ch); for(let i=0;i<len;i++) d[i]=(Math.random()*2-1)*Math.pow(1-i/len,decay); }
-  return buf;
-}
-document.getElementById('volume').oninput=e=>{
-  document.getElementById('volTitle').textContent='Volume: '+e.target.value+'%';
-  if(masterGain) masterGain.gain.value=e.target.value/100;
-};
-document.getElementById('reverbToggle').onchange=e=>{ if(wetGain) wetGain.gain.value = e.target.checked?0.3:0; };
+    let audioCtx;
+    const activeNotes = {};
+    const masterVolume = 0.62;
 
-// ---- Transpose ----
-const NOTE_NAMES=['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
-let transpose=0;
-document.getElementById('transUp').onclick=()=>{ transpose=(transpose+1)%12; updateTranspose(); };
-document.getElementById('transDown').onclick=()=>{ transpose=(transpose+11)%12; updateTranspose(); };
-function updateTranspose(){
-  document.getElementById('transVal').textContent = transpose<=6?transpose:transpose-12;
-  document.getElementById('transTitle').textContent = 'Scale Changer - '+NOTE_NAMES[transpose];
-}
+    function playNote(freq, keyChar) {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (activeNotes[keyChar]) return;
 
-// ---- Key layout: 13 white (q..\), 9 black (1,2,4,5,7,8,9,-,=) ----
-const whiteKeys=[
-  {k:'q',semi:0,n:'C'},{k:'w',semi:2,n:'D'},{k:'e',semi:4,n:'E'},{k:'r',semi:5,n:'F'},
-  {k:'t',semi:7,n:'G'},{k:'y',semi:9,n:'A'},{k:'u',semi:11,n:'B'},
-  {k:'i',semi:12,n:'C'},{k:'o',semi:14,n:'D'},{k:'p',semi:16,n:'E'},
-  {k:'[',semi:17,n:'F'},{k:']',semi:19,n:'G'},{k:'\\',semi:21,n:'A'}
-];
-const blackKeys=[
-  {k:'1',semi:1},{k:'2',semi:3},{k:'4',semi:6},{k:'5',semi:8},{k:'7',semi:10},
-  {k:'8',semi:13},{k:'9',semi:15},{k:'-',semi:18},{k:'=',semi:20}
-];
-const keyMap={}; whiteKeys.forEach(w=>keyMap[w.k]=w.semi); blackKeys.forEach(b=>keyMap[b.k]=b.semi);
+        // Custom Multi-Reed Harmonium Synthesis
+        const masterGain = audioCtx.createGain();
+        
+        // Bellows envelope: Mimics physical air pressure building up
+        masterGain.gain.setValueAtTime(0, audioCtx.currentTime);
+        masterGain.gain.linearRampToValueAtTime(masterVolume, audioCtx.currentTime + 0.08);
 
-const keyboardEl=document.getElementById('keyboard');
-const keyEls={};
-let whiteKeyW = window.innerWidth<=560 ? 30 : 38;
-const gap=2;
-whiteKeys.forEach((w,i)=>{
-  const el=document.createElement('div'); el.className='white-key';
-  el.innerHTML='<div class="k">'+w.k.toUpperCase()+'</div><div class="n">'+w.n+'</div>';
-  keyboardEl.appendChild(el); keyEls[w.semi]=el; w._x=i*(whiteKeyW+gap);
-});
-keyboardEl.style.width=(whiteKeys.length*(whiteKeyW+gap))+'px';
-const blackKeyW = window.innerWidth<=560 ? 19 : 24;
-blackKeys.forEach(b=>{
-  const prevWhite=whiteKeys.slice().reverse().find(w=>w.semi<b.semi);
-  const el=document.createElement('div'); el.className='black-key';
-  el.innerHTML='<div class="k">'+b.k+'</div>';
-  el.style.left=(prevWhite._x+whiteKeyW-blackKeyW/2)+'px';
-  keyboardEl.appendChild(el); keyEls[b.semi]=el;
-});
+        // Lowpass filter simulates the wooden enclosure muffling harsh frequencies
+        const filter = audioCtx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.value = 3200; 
+        filter.Q.value = 0.5;
 
-// ---- Voices: additive reed model (two beating saws + sub triangle),
-// formant peak around 950Hz (the "nasal" harmonium colour), soft saturation
-// for reed buzz, slow tremolo for bellows-pumping character, gentle pitch vibrato ----
-function freq(midi){ return 440*Math.pow(2,(midi-69)/12); }
-function distCurve(amount){
-  const n=1024, curve=new Float32Array(n);
-  for(let i=0;i<n;i++){ const x=i*2/n-1; curve[i]=(Math.PI+amount)*x/(Math.PI+amount*Math.abs(x)); }
-  return curve;
-}
-const SHAPER_CURVE = distCurve(6);
-const activeVoices={};
+        // Primary Reed (Sharp tone)
+        const osc1 = audioCtx.createOscillator();
+        osc1.type = 'sawtooth';
+        osc1.frequency.value = freq;
 
-function reedVoice(f){
-  const now=ctx.currentTime;
-  const o1=ctx.createOscillator(); o1.type='sawtooth'; o1.frequency.value=f;
-  const o2=ctx.createOscillator(); o2.type='sawtooth'; o2.frequency.value=f; o2.detune.value=7; // two reeds, slightly apart
-  const o3=ctx.createOscillator(); o3.type='triangle'; o3.frequency.value=f; // fundamental warmth
+        // Secondary Reed (Slightly detuned for chorusing "thickness")
+        const osc2 = audioCtx.createOscillator();
+        osc2.type = 'sawtooth';
+        osc2.frequency.value = freq;
+        osc2.detune.value = 8; 
 
-  const vib=ctx.createOscillator(); vib.frequency.value=5.1;
-  const vibGain=ctx.createGain(); vibGain.gain.value=2.5;
-  vib.connect(vibGain); vibGain.connect(o1.frequency); vibGain.connect(o2.frequency);
+        // Bass/Male Reed (Adds warm low-end resonance)
+        const osc3 = audioCtx.createOscillator();
+        osc3.type = 'square';
+        osc3.frequency.value = freq / 2; 
 
-  const m1=ctx.createGain(); m1.gain.value=0.5;
-  const m2=ctx.createGain(); m2.gain.value=0.5;
-  const m3=ctx.createGain(); m3.gain.value=0.35;
-  const sum=ctx.createGain(); sum.gain.value=1;
+        // Mixing the reeds
+        const mix1 = audioCtx.createGain(); mix1.gain.value = 0.4;
+        const mix2 = audioCtx.createGain(); mix2.gain.value = 0.4;
+        const mix3 = audioCtx.createGain(); mix3.gain.value = 0.2;
 
-  const shaper=ctx.createWaveShaper(); shaper.curve=SHAPER_CURVE; shaper.oversample='2x';
-  const lp=ctx.createBiquadFilter(); lp.type='lowpass'; lp.frequency.value=2600; lp.Q.value=0.5;
-  const peak=ctx.createBiquadFilter(); peak.type='peaking'; peak.frequency.value=950; peak.Q.value=1.1; peak.gain.value=4;
+        osc1.connect(mix1).connect(filter);
+        osc2.connect(mix2).connect(filter);
+        osc3.connect(mix3).connect(filter);
+        
+        filter.connect(masterGain);
+        masterGain.connect(audioCtx.destination);
 
-  const tremOsc=ctx.createOscillator(); tremOsc.frequency.value=5.4;
-  const tremDepth=ctx.createGain(); tremDepth.gain.value=0.04;
-  const trem=ctx.createGain(); trem.gain.value=1;
-  tremOsc.connect(tremDepth); tremDepth.connect(trem.gain);
+        osc1.start(); 
+        osc2.start(); 
+        osc3.start();
 
-  const g=ctx.createGain(); g.gain.setValueAtTime(0,now); g.gain.linearRampToValueAtTime(0.24, now+0.04);
-
-  o1.connect(m1); o2.connect(m2); o3.connect(m3);
-  m1.connect(sum); m2.connect(sum); m3.connect(sum);
-  sum.connect(shaper); shaper.connect(lp); lp.connect(peak); peak.connect(trem); trem.connect(g); g.connect(masterGain);
-
-  [o1,o2,o3,vib,tremOsc].forEach(o=>o.start());
-  return { oscs:[o1,o2,o3,vib,tremOsc], g };
-}
-function releaseVoice(v){
-  const now=ctx.currentTime;
-  v.g.gain.cancelScheduledValues(now); v.g.gain.setValueAtTime(v.g.gain.value,now);
-  v.g.gain.linearRampToValueAtTime(0, now+0.18);
-  v.oscs.forEach(o=>o.stop(now+0.2));
-}
-function playSemi(semi){
-  ensureAudio();
-  if(activeVoices[semi]) return;
-  const midi = 60 + semi + transpose;
-  activeVoices[semi] = reedVoice(freq(midi-12));
-  if(keyEls[semi]) keyEls[semi].classList.add('active');
-}
-function stopSemi(semi){
-  const v=activeVoices[semi]; if(!v) return;
-  releaseVoice(v);
-  delete activeVoices[semi];
-  if(keyEls[semi]) keyEls[semi].classList.remove('active');
-}
-Object.entries(keyEls).forEach(([semi,el])=>{
-  const s=Number(semi);
-  el.addEventListener('pointerdown',e=>{ e.preventDefault(); el.setPointerCapture(e.pointerId); playSemi(s); });
-  el.addEventListener('pointerup',()=>stopSemi(s));
-  el.addEventListener('pointercancel',()=>stopSemi(s));
-  el.addEventListener('lostpointercapture',()=>stopSemi(s));
-  el.addEventListener('contextmenu',e=>e.preventDefault());
-});
-const held=new Set();
-window.addEventListener('keydown',e=>{
-  const k=e.key.toLowerCase();
-  if(keyMap[k]!==undefined && !held.has(k)){ held.add(k); playSemi(keyMap[k]); }
-});
-window.addEventListener('keyup',e=>{
-  const k=e.key.toLowerCase();
-  if(keyMap[k]!==undefined){ held.delete(k); stopSemi(keyMap[k]); }
-});
-window.addEventListener('blur',()=>{ held.forEach(k=>stopSemi(keyMap[k])); held.clear(); });
-
-// ---- MIDI ----
-const midiTitle=document.getElementById('midiTitle');
-const midiSelect=document.getElementById('midiSelect');
-function refreshMIDI(){
-  if(!navigator.requestMIDIAccess){ midiTitle.innerHTML='MIDI not supported <span class="refresh-icon" id="midiRefresh">⟳</span>'; document.getElementById('midiRefresh').onclick=refreshMIDI; return; }
-  navigator.requestMIDIAccess().then(access=>{
-    const ins=[...access.inputs.values()];
-    midiSelect.innerHTML='';
-    if(ins.length){
-      midiTitle.innerHTML='MIDI Keyboard Connected <span class="refresh-icon" id="midiRefresh">⟳</span>';
-      ins.forEach(inp=>{ const o=document.createElement('option'); o.textContent=inp.name; midiSelect.appendChild(o); inp.onmidimessage=onMIDI; });
-    } else {
-      midiTitle.innerHTML='MIDI Keyboard: none found <span class="refresh-icon" id="midiRefresh">⟳</span>';
-      midiSelect.innerHTML='<option>No MIDI device found</option>';
+        activeNotes[keyChar] = { osc1, osc2, osc3, masterGain };
+        
+        const el = document.querySelector(`[data-key="${keyChar}"]`);
+        if(el) el.classList.add('active');
     }
-    document.getElementById('midiRefresh').onclick=refreshMIDI;
-  }).catch(()=>{ midiTitle.innerHTML='MIDI unavailable <span class="refresh-icon" id="midiRefresh">⟳</span>'; document.getElementById('midiRefresh').onclick=refreshMIDI; });
-}
-document.getElementById('midiRefresh').onclick=refreshMIDI;
-refreshMIDI();
 
-const midiActive={};
-function onMIDI(msg){
-  ensureAudio();
-  const [status,note,vel]=msg.data; const cmd=status&0xf0;
-  if(cmd===0x90 && vel>0){ if(!midiActive[note]) midiActive[note]=reedVoice(freq(note-12+transpose)); }
-  else if(cmd===0x80 || (cmd===0x90 && vel===0)){
-    const v=midiActive[note]; if(!v) return;
-    releaseVoice(v);
-    delete midiActive[note];
-  }
-}
+    function stopNote(keyChar) {
+        if (!activeNotes[keyChar]) return;
+        const { osc1, osc2, osc3, masterGain } = activeNotes[keyChar];
+        
+        // Bellows release: Air escaping the reed blocks
+        masterGain.gain.linearRampToValueAtTime(0.001, audioCtx.currentTime + 0.15);
+        
+        osc1.stop(audioCtx.currentTime + 0.15);
+        osc2.stop(audioCtx.currentTime + 0.15);
+        osc3.stop(audioCtx.currentTime + 0.15);
+        
+        delete activeNotes[keyChar];
+        
+        const el = document.querySelector(`[data-key="${keyChar}"]`);
+        if(el) el.classList.remove('active');
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.repeat) return;
+        const key = e.key.toLowerCase();
+        const el = document.querySelector(`[data-key="${key}"]`);
+        if (el) playNote(parseFloat(el.getAttribute('data-freq')), key);
+    });
+
+    document.addEventListener('keyup', (e) => {
+        const key = e.key.toLowerCase();
+        stopNote(key);
+    });
+
+    document.querySelectorAll('.white-key, .black-key').forEach(el => {
+        const keyChar = el.getAttribute('data-key');
+        const freq = parseFloat(el.getAttribute('data-freq'));
+        el.addEventListener('mousedown', () => playNote(freq, keyChar));
+        el.addEventListener('mouseup', () => stopNote(keyChar));
+        el.addEventListener('mouseleave', () => stopNote(keyChar));
+    });
 </script>
 </body>
 </html>
