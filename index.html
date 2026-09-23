@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web Harmonium</title>
+    <title>Web Harmonium Pro - Authentic Tuning</title>
     <style>
         body {
             background-color: #e9ecef;
@@ -21,16 +21,14 @@
             padding-bottom: 50px;
         }
 
-        /* Header matching the image */
         .header {
-            background-color: #009688; /* Teal color */
+            background-color: #009688;
             color: white;
             padding: 15px 20px;
             font-size: 24px;
             margin-bottom: 20px;
         }
 
-        /* Keyboard Styles */
         .keyboard-container {
             display: flex;
             justify-content: center;
@@ -64,7 +62,7 @@
         .white-key.active { background-color: #ddd; }
 
         .key-label { color: #333; margin-bottom: 15px; }
-        .note-label { color: #0000ff; font-weight: bold; } /* Blue notes CDEFGAB */
+        .note-label { color: #0000ff; font-weight: bold; }
 
         .black-key {
             width: 20px;
@@ -84,7 +82,6 @@
         
         .black-key.active { background-color: #333; }
 
-        /* Black key positions */
         .bk-1 { left: 20px; }
         .bk-2 { left: 50px; }
         .bk-4 { left: 110px; }
@@ -95,7 +92,6 @@
         .bk-dash { left: 320px; }
         .bk-eq { left: 350px; }
 
-        /* Control Panels */
         .panel {
             background-color: #fff;
             margin: 0 20px 20px 20px;
@@ -104,7 +100,7 @@
         }
 
         .panel-header {
-            background-color: #5d7e91; /* Slate blue */
+            background-color: #5d7e91;
             color: white;
             text-align: center;
             padding: 10px;
@@ -116,23 +112,22 @@
             gap: 10px;
         }
 
-        /* Volume Slider */
         .slider-container {
             background-color: #e0e0e0;
             height: 20px;
             position: relative;
             margin-bottom: 5px;
         }
+        
         .slider-thumb {
             width: 30px;
             height: 20px;
-            background-color: #78c278; /* Green thumb */
+            background-color: #78c278;
             position: absolute;
             left: 62%;
             cursor: pointer;
         }
 
-        /* Reverb Toggle */
         .toggle-switch {
             width: 50px;
             height: 24px;
@@ -143,6 +138,7 @@
             display: inline-block;
             vertical-align: middle;
         }
+        
         .toggle-circle {
             width: 20px;
             height: 20px;
@@ -153,7 +149,6 @@
             right: 2px;
         }
 
-        /* MIDI Controls */
         .refresh-btn {
             background-color: white;
             border: none;
@@ -165,6 +160,7 @@
             justify-content: center;
             align-items: center;
         }
+        
         .midi-select {
             width: 100%;
             max-width: 200px;
@@ -173,13 +169,13 @@
             padding: 5px;
         }
 
-        /* Transpose Controls */
         .transpose-controls {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 0 20px;
         }
+        
         .trans-btn {
             background-color: #999;
             border: none;
@@ -189,6 +185,7 @@
             font-size: 18px;
             cursor: pointer;
         }
+        
         .trans-val { font-size: 18px; }
 
     </style>
@@ -198,19 +195,19 @@
 <div class="main-container">
     <div class="header">Web Harmonium</div>
 
-    <!-- Keyboard Layout matching the image exactly -->
+    <!-- Keyboard configured to strict A=440Hz Equal Temperament Frequencies -->
     <div class="keyboard-container">
         <div class="keyboard">
             <div class="white-key" data-key="`" data-freq="246.94"><span class="key-label">`</span><span class="note-label"></span></div>
-            <div class="white-key" data-key="q" data-freq="261.63"><span class="key-label">q</span><span class="note-label"></span></div>
-            <div class="white-key" data-key="w" data-freq="293.66"><span class="key-label">w</span><span class="note-label"></span></div>
-            <div class="white-key" data-key="e" data-freq="329.63"><span class="key-label">e</span><span class="note-label">C</span></div>
-            <div class="white-key" data-key="r" data-freq="349.23"><span class="key-label">r</span><span class="note-label">D</span></div>
-            <div class="white-key" data-key="t" data-freq="392.00"><span class="key-label">t</span><span class="note-label">E</span></div>
-            <div class="white-key" data-key="y" data-freq="440.00"><span class="key-label">y</span><span class="note-label">F</span></div>
-            <div class="white-key" data-key="u" data-freq="493.88"><span class="key-label">u</span><span class="note-label">G</span></div>
-            <div class="white-key" data-key="i" data-freq="523.25"><span class="key-label">i</span><span class="note-label">A</span></div>
-            <div class="white-key" data-key="o" data-freq="587.33"><span class="key-label">o</span><span class="note-label">B</span></div>
+            <div class="white-key" data-key="q" data-freq="261.63"><span class="key-label">q</span><span class="note-label">C</span></div>
+            <div class="white-key" data-key="w" data-freq="293.66"><span class="key-label">w</span><span class="note-label">D</span></div>
+            <div class="white-key" data-key="e" data-freq="329.63"><span class="key-label">e</span><span class="note-label">E</span></div>
+            <div class="white-key" data-key="r" data-freq="349.23"><span class="key-label">r</span><span class="note-label">F</span></div>
+            <div class="white-key" data-key="t" data-freq="392.00"><span class="key-label">t</span><span class="note-label">G</span></div>
+            <div class="white-key" data-key="y" data-freq="440.00"><span class="key-label">y</span><span class="note-label">A</span></div>
+            <div class="white-key" data-key="u" data-freq="493.88"><span class="key-label">u</span><span class="note-label">B</span></div>
+            <div class="white-key" data-key="i" data-freq="523.25"><span class="key-label">i</span><span class="note-label"></span></div>
+            <div class="white-key" data-key="o" data-freq="587.33"><span class="key-label">o</span><span class="note-label"></span></div>
             <div class="white-key" data-key="p" data-freq="659.25"><span class="key-label">p</span><span class="note-label"></span></div>
             <div class="white-key" data-key="[" data-freq="698.46"><span class="key-label">[</span><span class="note-label"></span></div>
             <div class="white-key" data-key="]" data-freq="783.99"><span class="key-label">]</span><span class="note-label"></span></div>
@@ -228,7 +225,6 @@
         </div>
     </div>
 
-    <!-- Volume Panel -->
     <div class="panel">
         <div class="panel-header">Volume: <span id="vol-display">62%</span></div>
         <div class="slider-container" id="vol-track">
@@ -236,7 +232,6 @@
         </div>
     </div>
 
-    <!-- Reverb Panel -->
     <div class="panel">
         <div class="panel-header">
             Reverb 
@@ -246,7 +241,6 @@
         </div>
     </div>
 
-    <!-- MIDI Panel -->
     <div class="panel">
         <div class="panel-header">
             MIDI Keyboard Supported!
@@ -255,7 +249,6 @@
         <select class="midi-select"></select>
     </div>
 
-    <!-- Transpose Panel -->
     <div class="panel">
         <div class="panel-header">Transpose - C</div>
         <div class="transpose-controls">
@@ -267,7 +260,6 @@
 </div>
 
 <script>
-    // Basic Audio Engine to make it playable
     let audioCtx;
     const activeNotes = {};
     const masterVolume = 0.62;
@@ -276,39 +268,74 @@
         if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         if (activeNotes[keyChar]) return;
 
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
+        // Custom Multi-Reed Harmonium Synthesis
+        const masterGain = audioCtx.createGain();
         
-        osc.type = 'sawtooth'; // Gives a reed-like harmonium sound
-        osc.frequency.value = freq;
-        
-        gain.gain.setValueAtTime(0, audioCtx.currentTime);
-        gain.gain.linearRampToValueAtTime(masterVolume, audioCtx.currentTime + 0.05);
+        // Bellows envelope: Mimics physical air pressure building up
+        masterGain.gain.setValueAtTime(0, audioCtx.currentTime);
+        masterGain.gain.linearRampToValueAtTime(masterVolume, audioCtx.currentTime + 0.08);
 
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start();
+        // Lowpass filter simulates the wooden enclosure muffling harsh frequencies
+        const filter = audioCtx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.value = 3200; 
+        filter.Q.value = 0.5;
 
-        activeNotes[keyChar] = { osc, gain };
+        // Primary Reed (Sharp tone)
+        const osc1 = audioCtx.createOscillator();
+        osc1.type = 'sawtooth';
+        osc1.frequency.value = freq;
+
+        // Secondary Reed (Slightly detuned for chorusing "thickness")
+        const osc2 = audioCtx.createOscillator();
+        osc2.type = 'sawtooth';
+        osc2.frequency.value = freq;
+        osc2.detune.value = 8; 
+
+        // Bass/Male Reed (Adds warm low-end resonance)
+        const osc3 = audioCtx.createOscillator();
+        osc3.type = 'square';
+        osc3.frequency.value = freq / 2; 
+
+        // Mixing the reeds
+        const mix1 = audioCtx.createGain(); mix1.gain.value = 0.4;
+        const mix2 = audioCtx.createGain(); mix2.gain.value = 0.4;
+        const mix3 = audioCtx.createGain(); mix3.gain.value = 0.2;
+
+        osc1.connect(mix1).connect(filter);
+        osc2.connect(mix2).connect(filter);
+        osc3.connect(mix3).connect(filter);
         
-        // Visual feedback
+        filter.connect(masterGain);
+        masterGain.connect(audioCtx.destination);
+
+        osc1.start(); 
+        osc2.start(); 
+        osc3.start();
+
+        activeNotes[keyChar] = { osc1, osc2, osc3, masterGain };
+        
         const el = document.querySelector(`[data-key="${keyChar}"]`);
         if(el) el.classList.add('active');
     }
 
     function stopNote(keyChar) {
         if (!activeNotes[keyChar]) return;
-        const { osc, gain } = activeNotes[keyChar];
+        const { osc1, osc2, osc3, masterGain } = activeNotes[keyChar];
         
-        gain.gain.linearRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
-        osc.stop(audioCtx.currentTime + 0.1);
+        // Bellows release: Air escaping the reed blocks
+        masterGain.gain.linearRampToValueAtTime(0.001, audioCtx.currentTime + 0.15);
+        
+        osc1.stop(audioCtx.currentTime + 0.15);
+        osc2.stop(audioCtx.currentTime + 0.15);
+        osc3.stop(audioCtx.currentTime + 0.15);
+        
         delete activeNotes[keyChar];
         
         const el = document.querySelector(`[data-key="${keyChar}"]`);
         if(el) el.classList.remove('active');
     }
 
-    // Map PC keyboard directly to on-screen keys
     document.addEventListener('keydown', (e) => {
         if (e.repeat) return;
         const key = e.key.toLowerCase();
@@ -321,7 +348,6 @@
         stopNote(key);
     });
 
-    // Mouse clicks
     document.querySelectorAll('.white-key, .black-key').forEach(el => {
         const keyChar = el.getAttribute('data-key');
         const freq = parseFloat(el.getAttribute('data-freq'));
@@ -330,6 +356,5 @@
         el.addEventListener('mouseleave', () => stopNote(keyChar));
     });
 </script>
-
 </body>
 </html>
