@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Web Harmonium</title>
+    <style>
+        body {
+            background-color: #1e1e1e;
+            color: #f0f0f0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .instrument-case {
+            background: linear-gradient(135deg, #5c2e0b, #3e1b04);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.8), inset 0 5px 15px rgba(255,255,255,0.1);
+            border: 4px solid #2b1100;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #d4af37; /* Gold lettering */
+            text-shadow: 1px 1px 2px #000;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-around;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+
+        .keyboard {
+            display: flex;
+            position: relative;
+            height: 220px;
+            user-select: none;
+            background: #111;
+            padding: 10px 10px 0 10px;
+            border-radius: 5px;
+        }
+
+        .key {
+            width: 45px;
+            height: 100%;
+            background: linear-gradient(to bottom, #fff 0%, #e0e0e0 100%);
+            border: 1px solid #ccc;
+            border-radius: 0 0 5px 5px;
+            margin: 0 1px;
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 5px 8px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 12px;
+            color: #666;
+            font-weight: bold;
+            transition: background 0.1s;
+        }
+
+        .key.active {
+            background: #d4d4d4;
+            transform: translateY(2px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        /* Black Keys Positioning */
+        .black-key {
+            width: 30px;
+            height: 60%;
+            background: linear-gradient(to bottom, #333 0%, #000 100%);
+            position: absolute;
+            top: 10px;
+            z-index: 2;
+            border-radius: 0 0 4px 4px;
+            box-shadow: 2px 4px 6px rgba(0,0,0,0.6);
+            color: #aaa;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 10px;
+            font-size: 11px;
+            cursor: pointer;
+        }
+
+        .black-key.active {
+            background: linear-gradient(to bottom, #111 0%, #000 100%);
+            transform: translateY(2px);
+            box-shadow: 1px 2px 3px rgba(0,0,0,0.6);
+        }
+
+        /* Positions for one octave of black keys */
+        .bk-1 { left: 41px; } /* C# */
+        .bk-2 { left: 88px; } /* D# */
+        .bk-3 { left: 182px; } /* F# */
+        .bk-4 { left: 229px; } /* G# */
+        .bk-5 { left: 276px; } /* A# */
+        
+        .instructions {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 14px;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+
+<div class="instrument-case">
+    <div class="header">
+        <h2>Virtual Harmonium</h2>
+    </div>
+
+    <div class="controls">
+        <div class="control-group">
+            <label for="volume">Master Volume</label>
+            <input type="range" id="volume" min="0" max="1" step="0.05" value="0.5">
+        </div>
+        <div class="control-group">
+            <label for="reeds">Multi-Reed Thickness</label>
+            <input type="range" id="reeds" min="0" max="20" step="1" value="10">
+        </div>
+    </div>
+
+    <!-- Keyboard Layout (Mapped to A-K for white keys, W-U for black keys) -->
+    <div class="keyboard" id="keyboard">
+        <div class="key" data-note="261.63" data-key="a">A</div>
+        <div class="black-key bk-1" data-note="277.18" data-key="w">W</div>
+        <div class="key" data-note="293.66" data-key="s">S</div>
+        <div class="black-key bk-2" data-note="311.13" data-key="e">E</div>
+        <div class="key" data-note="329.63" data-key="d">D</div>
+        <div class="key" data-note="349.23" data-key="f">F</div>
+        <div class="black-key bk-3" data-note="369.99" data-key="t">T</div>
+        <div class="key" data-note="392.00" data-key="g">G</div>
+        <div class="black-key bk-4" data-note="415.30" data-key="y">Y</div>
+        <div class="key" data-note="440.00" data-key="h">H</div>
+        <div class="black-key bk-5" data-note="466.16" data-key="u">U</div>
+        <div class="key" data-note="493.88" data-key="j">J</div>
+        <div class="key" data-note="523.25" data-key="k">K</div>
+    </div>
+</div>
+<div class="instructions">Click keys with your mouse, or use your PC keyboard (A-K).</div>
+
+<script>
+    let audioCtx;
+    const activeNotes = {};
+    const volControl = document.getElementById('volume');
+    const reedControl = document.getElementById('reeds');
+
+    function initAudio() {
+        if (!audioCtx) {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+    }
+
+    function playNote(frequency, keyElement) {
+        initAudio();
+        if (activeNotes[frequency]) return; // Don't re-trigger if already held down
+
+        // Harmoniums are free-reed instruments. Sawtooth waves mimic this best.
+        const osc1 = audioCtx.createOscillator();
+        const osc2 = audioCtx.createOscillator(); // Second reed
+        
+        osc1.type = 'sawtooth';
+        osc2.type = 'sawtooth';
+
+        osc1.frequency.value = frequency;
+        // Detune second oscillator based on the "Multi-Reed" slider to create chorusing
+        osc2.frequency.value = frequency;
+        osc2.detune.value = reedControl.value; 
+
+        // Filter to remove the harsh digital buzz and make it sound acoustic
+        const filter = audioCtx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.value = 2500; 
+
+        // Envelope (ADSR) to mimic air bellows
+        const gainNode = audioCtx.createGain();
+        gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
+        // Slow attack (building air pressure)
+        gainNode.gain.linearRampToValueAtTime(volControl.value * 0.5, audioCtx.currentTime + 0.1); 
+
+        osc1.connect(filter);
+        osc2.connect(filter);
+        filter.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+
+        osc1.start();
+        osc2.start();
+
+        activeNotes[frequency] = { osc1, osc2, gainNode };
+        keyElement.classList.add('active');
+    }
+
+    function stopNote(frequency, keyElement) {
+        if (!activeNotes[frequency]) return;
+
+        const { osc1, osc2, gainNode } = activeNotes[frequency];
+        
+        // Quick release, like dropping the piano key
+        gainNode.gain.setValueAtTime(gainNode.gain.value, audioCtx.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.2);
+        
+        osc1.stop(audioCtx.currentTime + 0.2);
+        osc2.stop(audioCtx.currentTime + 0.2);
+        
+        delete activeNotes[frequency];
+        keyElement.classList.remove('active');
+    }
+
+    // --- Mouse Controls ---
+    const keys = document.querySelectorAll('.key, .black-key');
+    keys.forEach(key => {
+        const freq = parseFloat(key.getAttribute('data-note'));
+        key.addEventListener('mousedown', () => playNote(freq, key));
+        key.addEventListener('mouseup', () => stopNote(freq, key));
+        key.addEventListener('mouseleave', () => stopNote(freq, key));
+    });
+
+    // --- PC Keyboard Controls ---
+    document.addEventListener('keydown', (e) => {
+        if (e.repeat) return; // Ignore hold-down repeat firing
+        const keyElement = document.querySelector(`[data-key="${e.key.toLowerCase()}"]`);
+        if (keyElement) {
+            playNote(parseFloat(keyElement.getAttribute('data-note')), keyElement);
+        }
+    });
+
+    document.addEventListener('keyup', (e) => {
+        const keyElement = document.querySelector(`[data-key="${e.key.toLowerCase()}"]`);
+        if (keyElement) {
+            stopNote(parseFloat(keyElement.getAttribute('data-note')), keyElement);
+        }
+    });
+</script>
+</body>
+</html>
